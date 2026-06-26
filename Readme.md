@@ -1,4 +1,4 @@
-````markdown
+
 # 🏢 Intelligent Support Router & Triage
 
 An end-to-end NLP application that automatically classifies incoming customer support tickets using a fine-tuned **BERT** model built with **TensorFlow** and **Hugging Face Transformers**.
@@ -237,17 +237,6 @@ During development, several real-world engineering issues were resolved:
 
 ---
 
-## 🚀 Future Improvements
-
-* Train on a larger real-world customer support dataset
-* Display prediction confidence scores
-* Multi-label ticket classification
-* Replace rule-based responses with an LLM
-* Retrieval-Augmented Generation (RAG)
-* Docker containerization
-* Cloud deployment (AWS or Azure)
-
----
 
 ## 📸 Demo
 
