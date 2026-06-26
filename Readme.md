@@ -19,7 +19,18 @@ This project automates the process by:
 - 🌐 Deploying the application with Flask and ngrok
 
 ---
+## 📂 Repository Structure
 
+```text
+.
+├── Tests/
+│   ├── Colab Notebook
+│   ├── Presentation
+│   ├── Architecture Diagram
+│   └── Demo 
+├── README.md
+└── requirements.txt
+---
 ## 🎯 Features
 
 - Customer Ticket Classification
