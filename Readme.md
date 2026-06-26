@@ -20,7 +20,7 @@ This project automates the process by:
 
 ---
 ## 📂 Repository Structure
-
+```
 ├── Tests/
 │   ├── Colab Notebook
 │   ├── Presentation
@@ -28,6 +28,7 @@ This project automates the process by:
 │   └── Demo 
 ├── README.md
 └── requirements.txt
+```
 ---
 ## 🎯 Features
 
