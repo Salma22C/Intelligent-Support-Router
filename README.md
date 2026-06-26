@@ -1,4 +1,4 @@
-# 🏢 Intelligent Support Router & Triage
+# 🏢 Intelligent Support Router 
 
 An end-to-end NLP application that automatically classifies incoming customer support tickets using a fine-tuned **BERT** model built with **TensorFlow** and **Hugging Face Transformers**.
 
