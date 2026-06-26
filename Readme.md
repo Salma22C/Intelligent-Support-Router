@@ -21,8 +21,6 @@ This project automates the process by:
 ---
 ## 📂 Repository Structure
 
-```text
-.
 ├── Tests/
 │   ├── Colab Notebook
 │   ├── Presentation
