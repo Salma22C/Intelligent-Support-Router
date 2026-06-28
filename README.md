@@ -41,10 +41,11 @@ pip install -r requirements.txt
 
 ## Launch Jupyter Notebook
 
-```bash
-jupyter notebook
-```
+# For training and experimentation
+```jupyter notebook```
 
+# For running the deployed application
+```python app.py```
 Open the project notebook and run all cells sequentially.
 
 > **Note:** The Flask application is demonstrated using Google Colab together with ngrok. The generated ngrok URL is temporary and remains active only while the Colab runtime is running.
