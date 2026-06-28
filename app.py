@@ -1,4 +1,5 @@
 import os
+
 import tensorflow as tf
 from flask import Flask, request, render_template_string
 from transformers import (
@@ -35,7 +36,7 @@ else:
 generation_pipeline = pipeline(
     "text-generation",
     model="Qwen/Qwen2.5-0.5B-Instruct",
-    device_map="auto"
+    device_map="auto",
 )
 
 # ==========================================================
@@ -139,7 +140,6 @@ Route & Process Ticket
 
 @app.route("/", methods=["GET"])
 def home():
-
     return render_template_string(HTML_TEMPLATE)
 
 # ==========================================================
@@ -148,67 +148,57 @@ def home():
 
 @app.route("/process", methods=["POST"])
 def process():
-    """Processes incoming customer support tickets."""
-
-    # Get user input safely
     user_text = request.form.get("email_text", "").strip()
 
-    # Handle empty submissions
     if not user_text:
         return render_template_string(
             HTML_TEMPLATE,
             intent="Error",
-            response="Please enter a valid customer support ticket."
+            response="Please enter a valid customer support ticket.",
         )
 
-    # Tokenize the input
     inputs = tokenizer(
         user_text,
         return_tensors="tf",
         truncation=True,
         padding=True,
-        max_length=64
+        max_length=64,
     )
 
-    # Run BERT classification
     outputs = model(inputs)
-    prediction = tf.argmax(outputs.logits, axis=-1).numpy()[0]
+    prediction = int(tf.argmax(outputs.logits, axis=-1).numpy()[0])
 
-    # Ticket categories
     labels = {
         0: "Urgent Complaint",
         1: "Feature Suggestion",
-        2: "General Inquiry"
+        2: "General Inquiry",
     }
 
     category = labels[prediction]
 
-    # Prompt templates for the LLM
     prompts = {
         0: "You are an urgent customer support assistant. Draft a short escalation note.",
         1: "You are a product manager. Summarize the feature request.",
-        2: "You are a professional customer support agent. Draft a polite response."
+        2: "You are a professional customer support agent. Draft a polite response.",
     }
 
     messages = [
         {
             "role": "system",
-            "content": prompts[prediction]
+            "content": prompts[prediction],
         },
         {
             "role": "user",
-            "content": user_text
-        }
+            "content": user_text,
+        },
     ]
 
-    # Build chat prompt
     prompt = generation_pipeline.tokenizer.apply_chat_template(
         messages,
         tokenize=False,
-        add_generation_prompt=True
+        add_generation_prompt=True,
     )
 
-    # Generate response
     result = generation_pipeline(
         prompt,
         max_new_tokens=120,
@@ -218,7 +208,6 @@ def process():
 
     generated_text = result[0]["generated_text"]
 
-    # Remove chat template if present
     if "<|im_start|>assistant\n" in generated_text:
         response = generated_text.split("<|im_start|>assistant\n")[-1].strip()
     else:
@@ -235,5 +224,4 @@ def process():
 # ==========================================================
 
 if __name__ == "__main__":
-
     app.run(host="0.0.0.0", port=5000)
